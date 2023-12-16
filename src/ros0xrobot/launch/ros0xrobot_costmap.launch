@@ -1,0 +1,8 @@
+<launch>
+<node name="urg_node" pkg="urg_node" type="urg_node" />
+<node name="static_tf0" pkg="tf" type="static_transform_publisher" args="2 0 0 0 0 0 /map /base_link 100"/>
+<node pkg="tf" type="static_transform_publisher" name="Laser_link1_broadcaster" args="0.2 0 0.1 0 0 0 base_link laser 100" />
+<rosparam file="/home/alpha2/catkin_ws/minimal.yaml" command="load" ns="/costmap_node/costmap" />
+<node name="costmap_2d" pkg="costmap_2d" type="costmap_2d_node" />
+
+</launch>

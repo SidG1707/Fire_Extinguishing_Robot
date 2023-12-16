@@ -1,0 +1,11 @@
+file(REMOVE_RECURSE
+  "/home/alpha1/fire_work/devel/lib/rosserial_client/subscriber_test"
+  "/home/alpha1/fire_work/devel/lib/rosserial_client/subscriber_test.pdb"
+  "CMakeFiles/subscriber_test.dir/test/subscriber_test.cpp.o"
+  "CMakeFiles/subscriber_test.dir/test/subscriber_test.cpp.o.d"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/subscriber_test.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

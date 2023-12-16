@@ -1,0 +1,8 @@
+prefix=/home/alpha1/fire_work/devel
+
+Name: fire_detection
+Description: Description of fire_detection
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

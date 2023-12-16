@@ -1,0 +1,8 @@
+prefix=/home/alpha1/fire_work/install
+
+Name: hokuyo_filter
+Description: Description of hokuyo_filter
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

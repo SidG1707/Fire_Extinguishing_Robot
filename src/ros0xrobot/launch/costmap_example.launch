@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 
+  NOTE: You'll need to bring up something that publishes sensor data (see
+  rosstage), something that publishes a map (see map_server), and something to
+  visualize a costmap (see nav_view), to see things work.-->
+
+  <!--firebird base-->
+  <include file="$(find ros0xrobot)/launch/ros0xrobot_minimal.launch" />
+
+  <!--firebird hokuyo laser and cleaning-->
+  <include file="$(find ros0xrobot)/launch/ros0xrobot_hokuyo.launch" />
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map turret_pose 100" /> -->
+  <node name="turretpose_kf" pkg="turretpose_kf" type="turretpose_kf_node" />
+
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find ros0xrobot)/launch/map_base.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  Also, on a real robot, you'd want to set the "use_sim_time" parameter to false, or just not set it.
+  -->
+  <param name="/use_sim_time" value="false"/>
+
+
+  <!-- Run the costmap node -->
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="$(find ros0xrobot)/launch/costmap_example.yaml" command="load" ns="costmap" />
+  </node>
+
+  <!--RVIZ -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros0xrobot)/launch/costmap_odom.rviz" /> -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros0xrobot)/launch/costmap_pose.rviz" /> -->
+
+  <!--firebird teleop-->
+  <include file="$(find ros0xrobot)/launch/ros0xrobot_teleop.launch" />
+
+</launch>

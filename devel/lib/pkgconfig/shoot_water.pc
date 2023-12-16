@@ -1,0 +1,8 @@
+prefix=/home/alpha1/fire_work/devel
+
+Name: shoot_water
+Description: Description of shoot_water
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

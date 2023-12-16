@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+
+<!--firebird base-->
+<node name="ros0xrobot" pkg="ros0xrobot" type="ros0xrobotNode" output="screen">
+    <param name="port" value="/dev/ttyUSB0" />
+    <param name="CountsPerRev" value="3840" />
+    <param name="WheelDiameter" value="100.0" />
+    <param name="AxelLength" value="290.0" />
+    <param name="enableSonar" value="false" />
+    <param name="enableImu" value="false" />
+    <param name="enableodomtf" value="true" />
+</node>
+<remap from="/ros0xrobot/odom" to="/odom"/>
+<remap from="/ros0xrobot/cmd_vel" to="/cmd_vel"/>
+<!--<node pkg="tf" type="static_transform_publisher" name="Base_Link_static" args="0 0 0 0 0 0 odom base_footprint 33" />-->
+<node pkg="tf" type="static_transform_publisher" name="Base_odom_static" args="0 0 0.3 0 0 0 base_footprint base_link 33" />
+
+<!--mapping laser and cleaning-->
+<!--mapping laser-->
+<node name="urg_node" pkg="urg_node" type="urg_node" output="screen">
+<param name="serial_port" value="/dev/ttyACM2"/>
+<param name="frame_id" value="laser"/>
+<param name="angle_min" value="-1.57"/>
+<param name="angle_max" value="1.57"/>
+</node>
+<node pkg="tf" type="static_transform_publisher" name="Link_Laser_static" args="0.2 0 -0.2 0 0 0 base_link laser 33" />
+
+<group ns="fire">
+	<!--fire detection laser-->
+	<node name="urg_node" pkg="urg_node" type="urg_node">
+	 <param name="serial_port" value="/dev/ttyACM1"/>
+	 <param name="frame_id" value="top_laser"/>
+	</node>
+</group>
+<node pkg="tf" type="static_transform_publisher" name="Link_Laser_static_top" args="0.0 0 0.1 0 0 0 base_link top_laser 33" />
+
+<node name="hokuyo_filter" pkg="hokuyo_filter" type="hokuyo_filter_node" output="screen" >
+<param name="scan_topic" value="/fire/scan"/>
+</node>
+
+<node pkg="rosserial_python" type="serial_node.py" name="arduino_node" args="/dev/ttyACM0" output="screen"/>
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map_tf" args="0 0 0 0 0 0 1 world map" />
+
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+<node name="urg_node" pkg="urg_node" type="urg_node" />
+<node name="cv_camera" pkg="cv_camera" type="cv_camera_node" />
+<node name="ros0xrobot" pkg="ros0xrobot" type="ros0xrobotNode">
+<param name="port" value="/dev/ttyUSB0" />
+</node>
+<node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleopFirebird" output="screen" >
+    <remap from="cmd_vel" to="ros0xrobot/cmd_vel"/>
+</node>
+
+</launch>

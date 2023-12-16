@@ -1,0 +1,8 @@
+<launch>
+
+<node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleopFirebird" output="screen" >
+	<param name="speed" value="0.07" />
+	<param name="turn" value="0.07" />
+    <remap from="cmd_vel" to="ros0xrobot/cmd_vel"/>
+</node>
+</launch>

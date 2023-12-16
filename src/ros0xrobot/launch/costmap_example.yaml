@@ -1,0 +1,29 @@
+global_frame: /map
+robot_base_frame: base_link
+update_frequency: 5.0
+publish_frequency: 1.0
+
+#map parameters
+publish_voxel_map: false
+static_map: true
+map_type: 2d
+
+transform_tolerance: 0.3
+obstacle_range: 4.6
+max_obstacle_height: 2.0
+raytrace_range: 4.6
+footprint: [[-0.325, -0.325], [-0.325, 0.325], [0.325, 0.325], [0.46, 0.0], [0.325, -0.325]]
+robot_radius: 0.46
+footprint_padding: 0.01
+inflation_radius: 0.01
+cost_scaling_factor: 10.0
+lethal_cost_threshold: 100
+
+plugins: 
+    - {name: static_map_base, type: "costmap_2d::StaticLayer"}
+    - {name: obstacles, type: "costmap_2d::ObstacleLayer"}
+
+obstacles:
+    track_unknown_space: true
+    observation_sources: base_scan
+    base_scan: {data_type: LaserScan, sensor_frame: /laser, clearing: true, marking: true, topic: /scan_filter, inf_is_valid : true}

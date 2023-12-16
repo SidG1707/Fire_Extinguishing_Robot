@@ -1,0 +1,8 @@
+prefix=/home/alpha1/fire_work/install
+
+Name: ros0xrobot
+Description: Description of ros0xrobot
+Version: 0.0.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs roscpp std_msgs tf

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+<!--firebird base-->
+<include file="$(find ros0xrobot)/launch/ros0xrobot_minimal.launch" />
+
+<!--firebird transforms-->
+<node pkg="tf" type="static_transform_publisher" name="Camera_link1_broadcaster" args="0.08 0 0.28 -1.5708 0 -1.5708 base_footprint camera_rgb_optical_frame 100" />
+
+<!--firebird hokuyo laser and cleaning-->
+<include file="$(find ros0xrobot)/launch/ros0xrobot_hokuyo.launch" />
+<node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" />
+
+<!--opencv camera-->
+<node name="cv_camera" pkg="cv_camera" type="cv_camera_node" />
+
+<!-- ArUco mapping -->
+<node pkg="aruco_mapping" type="aruco_mapping" name="aruco_mapping" output="screen">
+    <param name="calibration_file" type="string" value="$(find aruco_mapping)/data/logitech.ini" /> 
+    <param name="num_of_markers" type="int" value="50" />
+    <param name="marker_size" type="double" value="0.189"/>
+    <param name="space_type" type="string" value="3D" />
+    <param name="roi_allowed" type="bool" value="false" />
+    <param name="roi_x" type="int" value="0" />
+    <param name="roi_y" type="int" value="0" />
+    <param name="roi_width" type="int" value="640" />
+    <param name="roi_height" type="int" value="480" />
+</node>
+
+<!-- ArUco tf calculator -->
+<node pkg="aruco_tf_lizi" type="lizi_broadcaster" name="lizi_broadcaster" output="screen"/>
+
+<!--hector slam -->
+<include file="$(find hector_slam_launch)/launch/fb_hector_ugv.launch" />
+
+<!--firebird teleop-->
+<include file="$(find ros0xrobot)/launch/ros0xrobot_teleop.launch" />
+
+</launch>

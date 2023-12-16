@@ -1,0 +1,6 @@
+<launch>
+<node name="urg_node" pkg="urg_node" type="urg_node" />
+<node pkg="tf" type="static_transform_publisher" name="Base_Link_static" args="0 0 0.3 0 0 0 base_footprint base_link 33" />
+<node pkg="tf" type="static_transform_publisher" name="Link_Laser_static" args="0.2 0 0.1 0 0 0 base_link laser 33" />
+<node name="hokuyo_filter" pkg="hokuyo_filter" type="hokuyo_filter_node" />
+</launch>

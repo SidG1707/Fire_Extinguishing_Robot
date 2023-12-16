@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+<node name="ros0xrobot" pkg="ros0xrobot" type="ros0xrobotNode" output="screen">
+	<param name="port" value="/dev/ttyUSB0" />
+	<param name="CountsPerRev" value="3840" />
+	<param name="WheelDiameter" value="100.0" />
+	<param name="AxelLength" value="290.0" />
+	<param name="enableSonar" value="false" />
+	<param name="enableImu" value="false" />
+</node>
+<remap from="/ros0xrobot/odom" to="/odom"/>
+</launch>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+<node pkg="rosserial_python" type="serial_node.py" name="arduino_node" args="/dev/ttyACM0" output="screen"/>
+	<!--fire detection laser-->
+<node name="urg_node" pkg="urg_node" type="urg_node" output="screen">
+ <param name="serial_port" value="/dev/ttyACM1"/>
+ <param name="frame_id" value="top_laser"/>
+</node>
+<node pkg="tf" type="static_transform_publisher" name="Base_Link_static" args="0 0 0.3 0 0 0 base_footprint base_link 33" />
+<node pkg="tf" type="static_transform_publisher" name="Link_Laser_static" args="0.0 0 0.1 0 0 0 base_link top_laser 33" />
+
+
+<node name="hokuyo_filter" pkg="hokuyo_filter" type="hokuyo_filter_node" output="screen" />
+
+</launch>

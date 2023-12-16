@@ -1,0 +1,10 @@
+port: /dev/ttyUSB0
+rate: 15
+dynamixels: {
+ turret_pan_joint: {id: 1, neutral: 2048, range: 360, ticks: 4096, min_angle: -180, max_angle: 180, max_speed: 45},
+ turret_tilt_joint: {id: 2, neutral: 1800, range: 180, ticks: 4096, min_angle: -90, max_angle: 90, max_speed: 25}
+}
+controllers: {
+  turret_controller: {type: follow_controller, joints: [turret_pan_joint, turret_tilt_joint], action_name: turret_controller/follow_joint_trajectory }
+}
+model: parallel
